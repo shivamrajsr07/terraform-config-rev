@@ -27,7 +27,6 @@ module "firewall" {
   target_tags       = ["allow-iap-ssh"]
 }
 
-# VM Service Account
 module "vm_iam" {
   source = "git::https://github.com/shivamrajsr07/terraform-mod-rev.git//modules/iam?ref=main"
 
@@ -37,7 +36,6 @@ module "vm_iam" {
   roles              = []
 }
 
-# GKE Service Account
 module "gke_iam" {
   source = "git::https://github.com/shivamrajsr07/terraform-mod-rev.git//modules/iam?ref=main"
 
@@ -54,7 +52,7 @@ module "compute_vm" {
   vm_name               = "evaluation-vm"
   subnet_self_link      = module.subnet.subnet_self_link
   service_account_email = module.vm_iam.service_account_email
-  network_tags          = ["allow-iap-ssh"]
+  network_tags          = ["allow-iap-ssh", "atlantis-test"]
   zone                  = "asia-south1-a"
 }
 
